@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Worker;
 use Illuminate\Http\Request;
 
 class WorkerController extends Controller
@@ -13,7 +14,8 @@ class WorkerController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $workers = Worker::all();
+        return view('index',compact('workers'));
     }
 
     /**
@@ -23,7 +25,7 @@ class WorkerController extends Controller
      */
     public function create()
     {
-        //
+        return "This is create page";
     }
 
     /**
@@ -34,7 +36,13 @@ class WorkerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $worker = new Worker();
+        $worker->name = $request->name;
+        $worker->email = $request->email;
+        $worker->phone = $request->phone;
+        $worker->password = $request->password;
+        $worker->save();
+        return redirect()->route('index');
     }
 
     /**
@@ -56,7 +64,8 @@ class WorkerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $worker = Worker::find($id);
+        return view('index',compact('worker'));
     }
 
     /**
@@ -68,7 +77,13 @@ class WorkerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $worker = Worker::find($id);
+        $worker->name = $request->name;
+        $worker->email = $request->email;
+        $worker->phone = $request->phone;
+        $worker->password = $request->password;
+        $worker->update();
+        return redirect()->route('index');
     }
 
     /**
@@ -79,6 +94,8 @@ class WorkerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $worker = Worker::find($id);
+        $worker->delete();
+        return redirect()->route('index');
     }
 }

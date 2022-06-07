@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\WorkerController;
+use App\Models\Worker;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',[WorkerController::class, 'index'])->name('index');
+Route::post('/create',[WorkerController::class, 'store'])->name('create');
+Route::delete('/destroy/{id}',[WorkerController::class,'destroy'])->name('destroy');
+Route::get('/edit/{id}',[WorkerController::class,'edit'])->name('edit');
+Route::put('/update/${id}',[WorkerController::class,'update'])->name('update');
